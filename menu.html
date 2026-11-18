@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Меню — ресторан «Золотой колос»: меню и доставка на дом.">
+  <title>Меню — Золотой колос</title>
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+  <a class="visually-hidden-focusable position-absolute p-2 bg-white" href="#main">Перейти к основному содержимому</a>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-brand sticky-top" aria-label="Основная навигация">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html"><img src="images/favicon.svg" alt="" width="32" height="32">Золотой колос</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Переключить навигацию">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="menu.html">Меню</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Корзина <span id="cartBadge" class="badge rounded-pill text-bg-light d-none" aria-label="товаров в корзине">0</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="flex-grow-1">
+    <div class="container my-4">
+      <h1 class="mb-3">Меню</h1>
+      <div class="row g-3 align-items-end mb-4">
+        <div class="col-12 col-lg-8">
+          <div id="categoryFilter" class="d-flex flex-wrap gap-2" role="group" aria-label="Категории меню"></div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <label for="searchInput" class="form-label visually-hidden">Поиск блюда</label>
+          <div class="input-group">
+            <span class="input-group-text">Поиск</span>
+            <input type="search" id="searchInput" class="form-control" placeholder="Найти блюдо">
+          </div>
+        </div>
+      </div>
+      <p id="dishCount" class="text-body-secondary" role="status"></p>
+
+      <div id="dishGrid" class="row g-4"></div>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-light py-4 mt-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-12 col-md-4">
+          <h2 class="h5">Золотой колос</h2>
+          <p class="small mb-0">Домашняя кухня и доставка на дом.</p>
+        </div>
+        <div class="col-6 col-md-4">
+          <h2 class="h6">Разделы</h2>
+          <ul class="list-unstyled small mb-0">
+            <li><a class="link-light" href="menu.html">Меню</a></li>
+            <li><a class="link-light" href="cart.html">Корзина</a></li>
+            <li><a class="link-light" href="contacts.html">Контакты</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-4">
+          <h2 class="h6">Связь</h2>
+          <address class="small mb-0">
+            <a class="link-light" href="tel:+74950000000">+7 (495) 000-00-00</a><br>
+            <a class="link-light" href="mailto:info@zolotoy-kolos.example">info@zolotoy-kolos.example</a><br>
+            ул. Примерная, 10
+          </address>
+        </div>
+      </div>
+      <hr class="border-secondary">
+      <p class="small text-center mb-0">© 2026 Золотой колос. Учебный проект (Bootstrap).</p>
+    </div>
+  </footer>
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastBox"></div>
+  <div class="modal fade" id="dishModal" tabindex="-1" aria-labelledby="dishModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="dishModalTitle">Блюдо</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img class="img-fluid rounded mb-3 w-100 modal-img" id="dishModalImg" src="" alt="" width="600" height="400">
+          <p><span id="dishModalLabel"></span></p>
+          <p id="dishModalDesc"></p>
+          <p class="mb-1"><strong>Состав:</strong> <span id="dishModalIngr"></span></p>
+          <p class="mb-1"><strong>Выход:</strong> <span id="dishModalWeight"></span></p>
+          <p class="fs-4 fw-bold mb-0" id="dishModalPrice"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Закрыть</button>
+          <button type="button" class="btn btn-brand" id="dishModalAdd">В корзину</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/dishes.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+/* Минимальные собственные правки поверх Bootstrap (подключается ПОСЛЕ bootstrap.min.css) */
+:root {
+  --brand: #8a2f1d;
+  --brand-dark: #6b2214;
+  --brand-soft: #fbeee9;
+}
+
+body { background-color: #fffdfb; }
+
+/* Фирменный цвет */
+.bg-brand { background-color: var(--brand); }
+.btn-brand {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--brand);
+  --bs-btn-border-color: var(--brand);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--brand-dark);
+  --bs-btn-hover-border-color: var(--brand-dark);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--brand-dark);
+  --bs-btn-active-border-color: var(--brand-dark);
+  --bs-btn-focus-shadow-rgb: 138, 47, 29;
+}
+.btn-outline-brand {
+  --bs-btn-color: var(--brand);
+  --bs-btn-border-color: var(--brand);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--brand);
+  --bs-btn-hover-border-color: var(--brand);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--brand-dark);
+  --bs-btn-active-border-color: var(--brand-dark);
+  --bs-btn-focus-shadow-rgb: 138, 47, 29;
+}
+a { color: var(--brand); }
+a:hover { color: var(--brand-dark); }
+
+/* Hero */
+.hero { background: linear-gradient(135deg, var(--brand) 0%, #b4532a 100%); }
+.hero-img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; background: var(--brand-soft); }
+
+/* Изображения: единый размер, не выходят за контейнер */
+.dish-img { height: 180px; width: 100%; object-fit: cover; background: var(--brand-soft); }
+.adv-img { height: 180px; width: 100%; object-fit: cover; background: var(--brand-soft); }
+.cat-img { height: 110px; width: 100%; object-fit: cover; background: var(--brand-soft); }
+.modal-img { max-height: 260px; object-fit: cover; background: var(--brand-soft); }
+.cart-img { aspect-ratio: 1 / 1; object-fit: cover; background: var(--brand-soft); }
+.empty-img { max-width: 240px; width: 60%; height: auto; }
+
+.dish-card { transition: transform .15s ease, box-shadow .15s ease; }
+.dish-card:hover { transform: translateY(-3px); box-shadow: var(--bs-box-shadow) !important; }
+
+/* Видимый фокус для клавиатуры */
+:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dish-card { transition: none; }
+  html { scroll-behavior: auto; }
+}

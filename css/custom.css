@@ -53,6 +53,9 @@
 @media (prefers-reduced-motion: reduce) {
   .dish-card { transition: none; }
   html { scroll-behavior: auto; }
+  .theme-toggle__thumb { transition: none; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none !important; }
 }
 
 /* ===== Тема: светлая/тёмная (Bootstrap data-bs-theme) ===== */
@@ -64,13 +67,24 @@ a:hover { color: var(--brand-link); filter: brightness(1.15); }
 .text-brand { color: var(--brand-link); }
 [data-bs-theme="dark"] .btn-outline-brand { --bs-btn-color: #f0a58f; --bs-btn-border-color: #f0a58f; --bs-btn-hover-color: #1a1a1a; --bs-btn-hover-bg: #f0a58f; --bs-btn-hover-border-color: #f0a58f; }
 body, .card, .bg-body-tertiary, .form-control, .form-select, .accordion-button, .modal-content, .list-group-item {
-  transition: background-color .4s ease, color .4s ease, border-color .4s ease;
+  transition: background-color 1s ease, color 1s ease, border-color 1s ease;
+}
+
+/* Волновой переход темы: круговая волна от кнопки переключателя (View Transitions API) */
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) {
+  animation: theme-wave 1.15s cubic-bezier(.4, 0, .2, 1) both;
+}
+@keyframes theme-wave {
+  from { clip-path: circle(0 at var(--theme-wave-x, 50%) var(--theme-wave-y, 50%)); }
+  to { clip-path: circle(var(--theme-wave-r, 150vmax) at var(--theme-wave-x, 50%) var(--theme-wave-y, 50%)); }
 }
 
 /* Переключатель темы */
 .theme-toggle { display: inline-flex; align-items: center; gap: .5rem; }
 .theme-toggle__track { position: relative; width: 2.2rem; height: 1.2rem; border-radius: 1rem; background: rgba(255,255,255,.35); }
-.theme-toggle__thumb { position: absolute; top: .15rem; left: .15rem; width: .9rem; height: .9rem; border-radius: 50%; background: #fff; transition: transform .4s ease; }
+.theme-toggle__thumb { position: absolute; top: .15rem; left: .15rem; width: .9rem; height: .9rem; border-radius: 50%; background: #fff; transition: transform .9s cubic-bezier(.4, 0, .2, 1); }
 [data-bs-theme="dark"] .theme-toggle__thumb { transform: translateX(1rem); }
 
 /* Избранное */
@@ -85,9 +99,37 @@ body, .card, .bg-body-tertiary, .form-control, .form-select, .accordion-button, 
 
 /* Кнопка «Наверх» и чат */
 .to-top { position: fixed; right: 1rem; bottom: 4.5rem; width: 2.75rem; height: 2.75rem; z-index: 1030; }
-.chat-widget { position: fixed; right: 1rem; bottom: 1rem; z-index: 1040; display: flex; flex-direction: column; align-items: flex-end; gap: .5rem; }
+.chat-widget { position: fixed; left: 1rem; bottom: 1rem; z-index: 1040; display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
 .chat-panel { width: min(320px, calc(100vw - 2rem)); }
 .chat-body { height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: .5rem; }
 .chat-msg { max-width: 85%; padding: .4rem .7rem; border-radius: .75rem; margin: 0; font-size: .9rem; }
 .chat-msg--bot { background: var(--bs-secondary-bg); align-self: flex-start; }
 .chat-msg--user { background: var(--brand); color: #fff; align-self: flex-end; }
+
+/* Главная: хиты меню и отзывы */
+.home-hit .dish-img { height: 160px; }
+.review-stars { color: #e0a800; letter-spacing: .12em; }
+.review-card { border-left: .25rem solid var(--brand); }
+
+/* Услуги: якоря карточек из глобального поиска */
+#serviceGrid [id] { scroll-margin-top: 5.5rem; }
+
+/* О нас: ценности и хронология */
+.value-card { border-top: .25rem solid var(--brand); }
+.timeline { position: relative; padding-left: 1.75rem; }
+.timeline::before {
+  content: ""; position: absolute; left: .45rem; top: .35rem; bottom: .35rem;
+  width: 2px; background: var(--bs-border-color);
+}
+.timeline-item { position: relative; padding-bottom: 1.35rem; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+  content: ""; position: absolute; left: -1.56rem; top: .35rem;
+  width: .8rem; height: .8rem; border-radius: 50%;
+  background: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft);
+}
+.timeline-year { font-weight: 700; color: var(--brand-link); }
+
+/* Глобальный поиск */
+.search-group + .search-group { margin-top: 1.75rem; }
+.search-hit mark { padding: 0 .1em; border-radius: .2em; }

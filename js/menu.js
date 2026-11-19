@@ -120,5 +120,9 @@ document.getElementById("dishModalAdd").addEventListener("click", () => {
   bootstrap.Modal.getInstance(modalEl).hide();
 });
 
+/* Переход из глобального поиска: menu.html?q=... сразу фильтрует блюда */
+const initialQuery = new URLSearchParams(location.search).get("q");
+if (initialQuery) searchInput.value = initialQuery;
+
 buildFilter();
 render();

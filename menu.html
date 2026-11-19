@@ -6,7 +6,7 @@
   <meta name="description" content="Меню — ресторан «Золотой колос»: меню и доставка на дом.">
   <title>Меню — Золотой колос</title>
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-  <script>try{var t=localStorage.getItem("restaurant-theme");if(t)document.documentElement.setAttribute("data-bs-theme",t);}catch(e){}</script>
+  <script src="js/theme.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/custom.css">
 </head>
@@ -24,11 +24,14 @@
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
           <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
           <li class="nav-item"><a class="nav-link active" aria-current="page" href="menu.html">Меню</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">О нас</a></li>
           <li class="nav-item"><a class="nav-link" href="services.html">Услуги</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">О нас</a></li>
           <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
           </ul>
-          <button type="button" class="btn btn-outline-light btn-sm ms-lg-3 mb-2 mb-lg-0 theme-toggle" id="themeToggle" aria-pressed="false">
+          <a class="btn btn-outline-light btn-sm ms-lg-3 mb-2 mb-lg-0 d-inline-flex align-items-center" href="search.html" aria-label="Поиск по сайту" title="Поиск по сайту">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+          </a>
+          <button type="button" class="btn btn-outline-light btn-sm ms-lg-2 mb-2 mb-lg-0 theme-toggle" id="themeToggle" aria-pressed="false">
             <span class="theme-toggle__track" aria-hidden="true"><span class="theme-toggle__thumb"></span></span>
             <span id="themeLabel">Тёмная тема</span>
           </button>
@@ -83,9 +86,10 @@
         <div class="col-12 col-md-4">
           <h2 class="h6 text-center">Разделы</h2>
           <ul class="list-unstyled small mb-0 text-center">
+            <li><a class="link-light" href="index.html">Главная</a></li>
             <li><a class="link-light" href="menu.html">Меню</a></li>
-            <li><a class="link-light" href="about.html">О нас</a></li>
             <li><a class="link-light" href="services.html">Услуги</a></li>
+            <li><a class="link-light" href="about.html">О нас</a></li>
             <li><a class="link-light" href="contacts.html">Контакты</a></li>
           </ul>
         </div>
@@ -94,13 +98,13 @@
           <address class="small mb-0">
             Ежедневно с 10:00 до 22:00<br>
             <a class="link-light" href="tel:+74954341287">+7 (495) 434-12-87</a><br>
-            <a class="link-light" href="mailto:info@zolotoy-kolos.example">info@zolotoy-kolos.example</a><br>
-            Москва, ул. Спиридоновка, д. 25/20, стр. 1
+            Москва, ул. Спиридоновка, д. 25/20, стр. 1<br>
+            <a class="link-light" href="mailto:info@zolotoy-kolos.example">info@zolotoy-kolos.example</a>
           </address>
         </div>
       </div>
       <hr class="border-secondary">
-      <p class="small mb-0">© 2026 Золотой колос. Все права защищены.</p>
+      <p class="small mb-0 text-center">© 2026 Золотой колос. Все права защищены.</p>
     </div>
   </footer>
 

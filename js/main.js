@@ -68,23 +68,49 @@ function showToast(message) {
   t.show();
 }
 
-/* ---------- Переключатель светлой/тёмной темы ---------- */
-function applyTheme(theme) {
-  document.documentElement.setAttribute("data-bs-theme", theme);
-  const btn = document.getElementById("themeToggle");
-  if (btn) {
-    btn.setAttribute("aria-pressed", theme === "dark");
-    document.getElementById("themeLabel").textContent = theme === "dark" ? "Светлая тема" : "Тёмная тема";
-  }
-}
+/* ---------- Переключатель светлой/тёмной темы (глобально для всех страниц) ---------- */
 function initTheme() {
-  let theme = "light";
-  try { theme = localStorage.getItem("restaurant-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); } catch (e) { /* ignore */ }
-  applyTheme(theme);
-  document.getElementById("themeToggle").addEventListener("click", () => {
-    const next = document.documentElement.getAttribute("data-bs-theme") === "dark" ? "light" : "dark";
-    applyTheme(next);
-    try { localStorage.setItem("restaurant-theme", next); } catch (e) { /* ignore */ }
+  const btn = document.getElementById("themeToggle");
+  const label = document.getElementById("themeLabel");
+  if (!btn) return;
+
+  function syncLabel() {
+    const dark = SiteTheme.get() === "dark";
+    btn.setAttribute("aria-pressed", dark);
+    if (label) label.textContent = dark ? "Светлая тема" : "Тёмная тема";
+  }
+
+  function commit(theme) {
+    SiteTheme.apply(theme);
+    SiteTheme.save(theme);
+    syncLabel();
+  }
+
+  syncLabel();
+  btn.addEventListener("click", () => {
+    const next = SiteTheme.get() === "dark" ? "light" : "dark";
+    const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion || typeof document.startViewTransition !== "function") {
+      commit(next);
+      return;
+    }
+
+    // Волна расходится из центра кнопки: увеличиваем задержку и радиус до дальнего угла.
+    const rect = btn.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    const root = document.documentElement;
+    root.style.setProperty("--theme-wave-x", x + "px");
+    root.style.setProperty("--theme-wave-y", y + "px");
+    root.style.setProperty("--theme-wave-r", radius + "px");
+
+    const transition = document.startViewTransition(() => commit(next));
+    transition.finished.finally(() => {
+      root.style.removeProperty("--theme-wave-x");
+      root.style.removeProperty("--theme-wave-y");
+      root.style.removeProperty("--theme-wave-r");
+    });
   });
 }
 
@@ -125,9 +151,40 @@ function initChat() {
   });
 }
 
+/* ---------- Главная: хиты меню ---------- */
+function initHomeHits() {
+  const box = document.getElementById("homeHits");
+  if (!box || typeof DISHES === "undefined") return;
+  const ids = [4, 7, 11, 8];
+  box.innerHTML = ids.map((id) => {
+    const d = getDish(id);
+    if (!d) return "";
+    return `
+    <div class="col-12 col-sm-6 col-lg-3">
+      <article class="card h-100 shadow-sm overflow-hidden home-hit">
+        <img class="card-img-top dish-img" src="${d.img}" alt="${escapeHtml(d.name)}" width="400" height="260" loading="lazy">
+        <div class="card-body d-flex flex-column text-center">
+          <h3 class="h5">${escapeHtml(d.name)}</h3>
+          <p class="small text-body-secondary flex-grow-1">${escapeHtml(d.desc)}</p>
+          <p class="fw-bold mb-3">${formatPrice(d.price)}</p>
+          <button type="button" class="btn btn-brand" data-add="${d.id}">В корзину</button>
+        </div>
+      </article>
+    </div>`;
+  }).join("");
+  box.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-add]");
+    if (!btn) return;
+    const dish = getDish(btn.dataset.add);
+    Cart.add(btn.dataset.add);
+    showToast(`«${dish.name}» добавлено в корзину`);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   updateCartBadge();
   initTheme();
   initToTop();
   initChat();
+  initHomeHits();
 });

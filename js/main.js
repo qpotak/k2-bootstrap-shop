@@ -43,11 +43,11 @@ const Cart = {
 };
 
 function updateCartBadge() {
-  const el = document.getElementById("cartBadge");
-  if (!el) return;
   const n = Cart.count();
-  el.textContent = n;
-  el.classList.toggle("d-none", n === 0);
+  document.querySelectorAll(".cart-badge").forEach((el) => {
+    el.textContent = n;
+    el.classList.toggle("d-none", n === 0);
+  });
 }
 
 /* ---------- Toast (уведомление) ---------- */
@@ -68,4 +68,66 @@ function showToast(message) {
   t.show();
 }
 
-document.addEventListener("DOMContentLoaded", updateCartBadge);
+/* ---------- Переключатель светлой/тёмной темы ---------- */
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-bs-theme", theme);
+  const btn = document.getElementById("themeToggle");
+  if (btn) {
+    btn.setAttribute("aria-pressed", theme === "dark");
+    document.getElementById("themeLabel").textContent = theme === "dark" ? "Светлая тема" : "Тёмная тема";
+  }
+}
+function initTheme() {
+  let theme = "light";
+  try { theme = localStorage.getItem("restaurant-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); } catch (e) { /* ignore */ }
+  applyTheme(theme);
+  document.getElementById("themeToggle").addEventListener("click", () => {
+    const next = document.documentElement.getAttribute("data-bs-theme") === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try { localStorage.setItem("restaurant-theme", next); } catch (e) { /* ignore */ }
+  });
+}
+
+/* ---------- Кнопка «Наверх» ---------- */
+function initToTop() {
+  const btn = document.getElementById("toTop");
+  window.addEventListener("scroll", () => btn.classList.toggle("d-none", window.scrollY < 400), { passive: true });
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
+
+/* ---------- Чат с консультантом (демо, без сервера) ---------- */
+function initChat() {
+  const panel = document.getElementById("chatPanel");
+  const toggle = document.getElementById("chatToggle");
+  const body = document.getElementById("chatBody");
+  const input = document.getElementById("chatInput");
+  function setOpen(open) {
+    panel.classList.toggle("d-none", !open);
+    toggle.setAttribute("aria-expanded", open);
+    if (open) input.focus();
+  }
+  function addMsg(text, who) {
+    const p = document.createElement("p");
+    p.className = "chat-msg chat-msg--" + who;
+    p.textContent = text;
+    body.appendChild(p);
+    body.scrollTop = body.scrollHeight;
+  }
+  toggle.addEventListener("click", () => setOpen(panel.classList.contains("d-none")));
+  document.getElementById("chatClose").addEventListener("click", () => { setOpen(false); toggle.focus(); });
+  document.getElementById("chatForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text) return;
+    addMsg(text, "user");
+    input.value = "";
+    setTimeout(() => addMsg("Спасибо за сообщение! Консультант ответит в ближайшее время.", "bot"), 600);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartBadge();
+  initTheme();
+  initToTop();
+  initChat();
+});

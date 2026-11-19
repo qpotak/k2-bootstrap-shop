@@ -6,6 +6,7 @@
   <meta name="description" content="Главная — ресторан «Золотой колос»: меню и доставка на дом.">
   <title>Главная — Золотой колос</title>
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <script>try{var t=localStorage.getItem("restaurant-theme");if(t)document.documentElement.setAttribute("data-bs-theme",t);}catch(e){}</script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/custom.css">
 </head>
@@ -20,27 +21,36 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainNavbar">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
           <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Главная</a></li>
           <li class="nav-item"><a class="nav-link" href="menu.html">Меню</a></li>
-          <li class="nav-item"><a class="nav-link" href="cart.html">Корзина <span id="cartBadge" class="badge rounded-pill text-bg-light d-none" aria-label="товаров в корзине">0</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">О нас</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Услуги</a></li>
           <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
           </ul>
+          <button type="button" class="btn btn-outline-light btn-sm ms-lg-3 mb-2 mb-lg-0 theme-toggle" id="themeToggle" aria-pressed="false">
+            <span class="theme-toggle__track" aria-hidden="true"><span class="theme-toggle__thumb"></span></span>
+            <span id="themeLabel">Тёмная тема</span>
+          </button>
         </div>
       </div>
     </nav>
   </header>
 
   <main id="main" class="flex-grow-1">
-    <section class="hero text-white py-5">
+    <section class="hero text-white py-5" aria-labelledby="heroTitle">
       <div class="container py-lg-4">
         <div class="row align-items-center g-4">
           <div class="col-12 col-lg-7">
-            <h1 class="display-5 fw-bold">Ресторан «Золотой колос»</h1>
+            <h1 class="display-5 fw-bold" id="heroTitle">Ресторан «Золотой колос»</h1>
             <p class="lead">Домашняя кухня, свежие продукты и быстрая доставка на дом. Выберите блюда в меню — мы привезём их горячими.</p>
+            <ul class="list-unstyled mb-4">
+              <li><strong>Адрес:</strong> г. Москва, ул. Примерная, д. 10</li>
+              <li><strong>Зал:</strong> ежедневно 10:00–23:00 · <strong>Доставка:</strong> 11:00–22:30</li>
+            </ul>
             <div class="d-grid gap-2 d-sm-flex">
               <a class="btn btn-light btn-lg" href="menu.html">Смотреть меню</a>
-              <a class="btn btn-outline-light btn-lg" href="cart.html">Моя корзина</a>
+              <a class="btn btn-outline-light btn-lg" href="services.html">Наши услуги</a>
             </div>
           </div>
           <div class="col-12 col-lg-5"><img class="img-fluid rounded-4 shadow hero-img" src="images/hero.jpg" alt="Блюда ресторана «Золотой колос»" width="600" height="400"></div>
@@ -57,7 +67,7 @@
       </div>
     </section>
 
-    <section class="bg-light py-5" aria-labelledby="cats">
+    <section class="bg-body-tertiary py-5" aria-labelledby="cats">
       <div class="container">
         <h2 id="cats" class="text-center mb-4">Разделы меню</h2>
         <div class="row g-3">
@@ -70,50 +80,69 @@
       </div>
     </section>
 
-    <section class="container my-5" aria-labelledby="where">
-      <div class="row g-4 align-items-center">
-        <div class="col-12">
-          <h2 id="where">Где мы находимся</h2>
-          <p>г. Москва, ул. Примерная, д. 10. Рядом со станцией метро «Примерная», вход со двора.</p>
-          <ul class="list-unstyled">
-            <li><strong>Ежедневно:</strong> 10:00–23:00</li>
-            <li><strong>Доставка:</strong> 11:00–22:30</li>
-          </ul>
-          <a class="btn btn-brand" href="contacts.html">Контакты</a>
-        </div>
+    <section class="container my-5" aria-labelledby="svc">
+      <h2 id="svc" class="text-center mb-4">Наши услуги</h2>
+      <div class="row g-4">
+        <div class="col-12 col-md-4"><div class="card h-100 shadow-sm overflow-hidden"><img class="card-img-top adv-img" src="images/service-birthday.jpg" alt="Праздничный стол на день рождения" width="400" height="260"><div class="card-body"><h3 class="h5">Дни рождения</h3><p class="mb-0">Накроем стол, украсим зал и подготовим торт.</p></div></div></div>
+        <div class="col-12 col-md-4"><div class="card h-100 shadow-sm overflow-hidden"><img class="card-img-top adv-img" src="images/service-corporate.jpg" alt="Корпоратив в зале ресторана" width="400" height="260"><div class="card-body"><h3 class="h5">Корпоративы</h3><p class="mb-0">Банкетное меню и зал для команды до 60 человек.</p></div></div></div>
+        <div class="col-12 col-md-4"><div class="card h-100 shadow-sm overflow-hidden"><img class="card-img-top adv-img" src="images/service-banquet.jpg" alt="Банкетный зал" width="400" height="260"><div class="card-body"><h3 class="h5">Банкеты и юбилеи</h3><p class="mb-0">Торжество любого масштаба под ключ.</p></div></div></div>
       </div>
+      <div class="text-center mt-4"><a class="btn btn-brand" href="services.html">Все услуги</a></div>
     </section>
   </main>
 
   <footer class="bg-dark text-light py-4 mt-5">
     <div class="container">
-      <div class="row g-4">
+      <div class="row g-4 justify-content-center">
         <div class="col-12 col-md-4">
           <h2 class="h5">Золотой колос</h2>
           <p class="small mb-0">Домашняя кухня и доставка на дом.</p>
         </div>
-        <div class="col-6 col-md-4">
-          <h2 class="h6">Разделы</h2>
-          <ul class="list-unstyled small mb-0">
+        <div class="col-12 col-md-4">
+          <h2 class="h6 text-center">Разделы</h2>
+          <ul class="list-unstyled small mb-0 text-center">
             <li><a class="link-light" href="menu.html">Меню</a></li>
-            <li><a class="link-light" href="cart.html">Корзина</a></li>
+            <li><a class="link-light" href="about.html">О нас</a></li>
+            <li><a class="link-light" href="services.html">Услуги</a></li>
             <li><a class="link-light" href="contacts.html">Контакты</a></li>
           </ul>
         </div>
-        <div class="col-6 col-md-4">
-          <h2 class="h6">Связь</h2>
+        <div class="col-12 col-md-4">
+          <h2 class="h6">Часы звонков</h2>
           <address class="small mb-0">
-            <a class="link-light" href="tel:+74950000000">+7 (495) 000-00-00</a><br>
+            Ежедневно с 10:00 до 22:00<br>
+            <a class="link-light" href="tel:+74954341287">+7 (495) 434-12-87</a><br>
             <a class="link-light" href="mailto:info@zolotoy-kolos.example">info@zolotoy-kolos.example</a><br>
-            ул. Примерная, 10
+            Москва, ул. Спиридоновка, д. 25/20, стр. 1
           </address>
         </div>
       </div>
       <hr class="border-secondary">
-      <p class="small text-center mb-0">© 2026 Золотой колос. Учебный проект (Bootstrap).</p>
+      <p class="small mb-0">© 2026 Золотой колос. Все права защищены.</p>
     </div>
   </footer>
-  <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastBox"></div>
+
+  <div class="toast-container position-fixed bottom-0 start-0 p-3" id="toastBox"></div>
+
+  <button type="button" class="btn btn-brand rounded-circle shadow to-top d-none" id="toTop" aria-label="Наверх">↑</button>
+
+  <div class="chat-widget">
+    <section class="card shadow chat-panel d-none" id="chatPanel" aria-labelledby="chatTitle">
+      <div class="card-header bg-brand text-white d-flex justify-content-between align-items-center">
+        <h2 class="h6 mb-0" id="chatTitle">Чат с консультантом</h2>
+        <button type="button" class="btn-close btn-close-white" id="chatClose" aria-label="Закрыть чат"></button>
+      </div>
+      <div class="card-body chat-body" id="chatBody" aria-live="polite">
+        <p class="chat-msg chat-msg--bot">Здравствуйте! Я консультант ресторана. Чем могу помочь?</p>
+      </div>
+      <form class="card-footer input-group" id="chatForm">
+        <label for="chatInput" class="visually-hidden">Сообщение</label>
+        <input type="text" class="form-control" id="chatInput" placeholder="Ваше сообщение" autocomplete="off">
+        <button class="btn btn-brand" type="submit">Отправить</button>
+      </form>
+    </section>
+    <button type="button" class="btn btn-brand rounded-pill shadow" id="chatToggle" aria-expanded="false" aria-controls="chatPanel">Консультант</button>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/dishes.js"></script>

@@ -21,36 +21,17 @@ Backend не реализован, оформление заказа — ими�
 
 ## 3. Технологии
 
-| Технология | Для чего используется |
-| --- | --- |
-| HTML5 | семантическая разметка (`header`, `nav`, `main`, `section`, `article`, `footer`, `address`, `fieldset`) |
-| CSS3 | `css/custom.css` — только минимальные правки поверх Bootstrap |
-| Bootstrap 5.3.3 (CDN) | сетка, компоненты, формы, утилиты |
-| JavaScript | отрисовка меню, корзина, проверка формы заказа |
 
-## 4. Структура проекта
-
-```
-├── index.html      главная
-├── menu.html       меню (каталог блюд)
-├── cart.html       корзина и оплата
-├── contacts.html   контакты и FAQ
-├── css/custom.css  собственные стили
-├── js/
-│   ├── dishes.js   данные блюд и категории
-│   ├── main.js     корзина (localStorage), счётчик, toast
-│   ├── menu.js     фильтр, поиск, карточки, модальное окно
-│   └── cart.js     корзина, форма заказа
-├── images/         изображения блюд и главной страницы
-├── README.md
-└── .gitignore
-```
+HTML: семантическая разметка (`header`, `nav`, `main`, `section`, `article`, `footer`, `address`, `fieldset`)
+CSS3: `css/custom.css` - только минимальные правки поверх Bootstrap
+Bootstrap: сетка, компоненты, формы, утилиты
+JavaScript: отрисовка меню, корзина, проверка формы заказа
 
 ## 5. Bootstrap-сетка и адаптивность
 
-- `container`, `row`, `col-12 col-md-6 col-lg-4 col-xl-3` — карточки блюд: 1 / 2 / 3 / 4 в ряд;
+- `container`, `row`, `col-12 col-md-6 col-lg-4 col-xl-3` - карточки блюд: 1 / 2 / 3 / 4 в ряд;
 - `g-3`, `g-4` — отступы между колонками;
-- `navbar-expand-lg` + `navbar-toggler` — меню сворачивается в «бургер» на мобильных;
+- `navbar-expand-lg` + `navbar-toggler` - меню сворачивается в «бургер» на мобильных;
 - `table-responsive` — таблица не ломает страницу;
 - `img-fluid`, `object-fit: cover` — изображения не выходят за контейнеры;
 - `d-grid` / `d-sm-flex` — кнопки на мобильных на всю ширину;
